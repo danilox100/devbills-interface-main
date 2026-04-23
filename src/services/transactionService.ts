@@ -1,4 +1,5 @@
 import type {
+  MonthlyItem,
   Transaction,
   TransactionFilter,
   TransactionSummary,
@@ -24,4 +25,24 @@ export const getTransactionSummary = async (
   });
 
   return response.data;
+};
+
+export const getTransactionsMontlhy = async (
+  month: number,
+  year: number,
+  months?: number,
+): Promise<{ history: MonthlyItem[] }> => {
+  const response = await api.get('/transactions/historical', {
+    params: {
+      month,
+      year,
+      months,
+    },
+  });
+
+  return response.data;
+};
+
+export const deleteTransaction = async (id: string): Promise<void> => {
+  await api.delete(`/transactions/${id}`);
 };
